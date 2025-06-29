@@ -92,21 +92,21 @@ WHERE zvejybos_irankio_pav LIKE N'Nežinomi%';
 By checking the preliminary queries that will be used and visualized as bar charts in **Power-BI**, I saw that a few of the entries are way too long in terms of character count, therefore, I shortened them but kept the original logic and meaning intact.
 
 ```sql
-SELECT TOP (10) zuvies_pav_en, SUM(sugauta_kiekis) as captured_amount FROM ZuvuKiekis_edited
+SELECT TOP (10) zuvies_pav_en, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
 GROUP BY zuvies_pav_en
-ORDER BY captured_amount DESC;
+ORDER BY captured_amount_in_tonnes DESC;
 ```
 
 ```sql
-SELECT TOP (10) ekonomines_zonos_pav, SUM(sugauta_kiekis) as captured_amount FROM ZuvuKiekis_edited
+SELECT TOP (10) ekonomines_zonos_pav, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
 GROUP BY ekonomines_zonos_pav
-ORDER BY captured_amount DESC;
+ORDER BY captured_amount_in_tonnes DESC;
 ```
 
 ```sql
-SELECT TOP (10) fao_zonos_pav, SUM(sugauta_kiekis) as captured_amount FROM ZuvuKiekis_edited
+SELECT TOP (10) fao_zonos_pav, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
 GROUP BY fao_zonos_pav
-ORDER BY captured_amount DESC;
+ORDER BY captured_amount_in_tonnes DESC;
 ```
 
 ```sql
@@ -140,4 +140,66 @@ WHERE fao_zonos_pav = 'Porcupine Bank - Non-Neafc Regulatory Area';
 ```
 
 ## EXPLORATORY DATA ANALYSIS AND VISUALIZATION
+
+The data is now cleaned up and ready for visualization, therefore, these will be the next steps:
+
+1. To calculate the average fishing trip duration, total fish caught in tonnes and get the most productive fishing tool using **Microsoft SQL Server**.
+2. Get the Top 10 most caught fish, most productive economic zones and most productive FAO zones.
+3. Import the data into Power BI via SQL Server method and build a dashboard visualizing the points above.
+
+Using the fishing trip duration (h) column - **pastangos_trukme_val** - I calculated the average fishing trip duration (h).
+
+```sql
+SELECT AVG(pastangos_trukme_val) as average_fishing_trip_length FROM ZuvuKiekis_edited;
+```
+
+Microsoft SQL Server automatically assigned the caught amount column - **sugauta_kiekis** - as INT type. However, since the total sum of all caught fish will exceed the character limits of INT column type, I converted the column into BIGINT.
+
+```sql
+ALTER TABLE ZuvuKiekis_edited ALTER COLUMN sugauta_kiekis BIGINT;
+```
+
+Then I proceeded with the calculation of total amount of fish caught in tonnes using the caught amount column - **sugauta_kiekis**.
+
+```sql
+SELECT SUM(sugauta_kiekis)*0.001 as total_fish_caught_in_tonnes FROM ZuvuKiekis_edited;
+```
+
+Using the fishing tool name column - **zvejybos_irankio_pav** - I got the most productive fishing tool in terms of captured fish amount.
+
+```sql
+SELECT TOP (1)  zvejybos_irankio_pav, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
+GROUP BY zvejybos_irankio_pav
+ORDER BY captured_amount_in_tonnes DESC;
+```
+In **Power-BI** these queries were visualized as card values.
+
+Next step was to get the standartized TOP 10 queries of most caught fish, most productive economic zones, most productive FAO zones and to visualize them as bar charts in **Power-BI**.
+
+```sql
+SELECT TOP (10) zuvies_pav_en, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
+GROUP BY zuvies_pav_en
+ORDER BY captured_amount_in_tonnes DESC;
+```
+
+```sql
+SELECT TOP (10) ekonomines_zonos_pav, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
+GROUP BY ekonomines_zonos_pav
+ORDER BY captured_amount_in_tonnes DESC;
+```
+
+```sql
+SELECT TOP (10) fao_zonos_pav, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
+GROUP BY fao_zonos_pav
+ORDER BY captured_amount_in_tonnes DESC;
+```
+
+After getting the wanted queries and values in SQL, the time series chart showing the caught fish amount trends over time could only be created using **Power-BI**.
+
+
+The entire and complete Power-BI dashboard is below.
+
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/Zuvininkystes_Tendencijos_page-0001.jpg)
+
+
 ## CONCLUSION
