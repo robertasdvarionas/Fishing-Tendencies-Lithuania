@@ -73,3 +73,38 @@ WHERE year(zvejybos_pastangos_pradzia) = 1966;
 DELETE FROM ZuvuKiekis_edited
 WHERE year(zvejybos_pastangos_pradzia) = 2205;
 ```
+
+As I will be measuring the average duration of the fishing trips, I checked the duration of the fishing trip (h) - **pastangos_trukme_val** - column and after ordering the column in ascending order, I saw that there are a couple of negative values and entries with a value of zero, which in the case of duration - does not make sense. Therefore, I removed these rows.
+
+```sql
+DELETE FROM ZuvuKiekis_edited
+WHERE pastangos_trukme_val <= 0;
+```
+
+In the fishing tool name column - **zvejybos_irankio_pav** - I saw that there were both NULL and 'Nežinomi arba išsamiai nenurodyti įrankiai' entries which are overlapping in function. For the sake of standartization I replaced the 'Nežinomi arba išsamiai nenurodyti įrankiai' values with NULL.
+
+```sql
+UPDATE ZuvuKiekis_edited
+SET zvejybos_irankio_pav = NULL
+WHERE zvejybos_irankio_pav LIKE N'Nežinomi%';
+```
+
+By checking the preliminary queries that will be used and visualized as bar charts in **Power-BI**, I saw that a few of the entries are way too long in terms of character count, therefore, I shortened them but kept the original logic and meaning intact.
+
+```sql
+SELECT TOP (10) zuvies_pav_en, SUM(sugauta_kiekis) as captured_amount FROM ZuvuKiekis_edited
+GROUP BY zuvies_pav_en
+ORDER BY captured_amount DESC;
+```
+
+```sql
+SELECT TOP (10) ekonomines_zonos_pav, SUM(sugauta_kiekis) as captured_amount FROM ZuvuKiekis_edited
+GROUP BY ekonomines_zonos_pav
+ORDER BY captured_amount DESC;
+```
+
+```sql
+SELECT TOP (10) fao_zonos_pav, SUM(sugauta_kiekis) as captured_amount FROM ZuvuKiekis_edited
+GROUP BY fao_zonos_pav
+ORDER BY captured_amount DESC;
+```
