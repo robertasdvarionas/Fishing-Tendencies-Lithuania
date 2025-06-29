@@ -58,10 +58,15 @@ I ordered the column both in ascending and descending order to check for annomal
 SELECT zvejybos_pastangos_pradzia FROM ZuvuKiekis_edited
 ORDER BY zvejybos_pastangos_pradzia;
 ```
+
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/1966%20year.png)
+
 ```sql
 SELECT zvejybos_pastangos_pradzia FROM ZuvuKiekis_edited
 ORDER BY zvejybos_pastangos_pradzia DESC;
 ```
+
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/2205%20year.png)
 
 I saw that there is one row with an entry from the year 1966 and two rows from the year 2205. As these entries are probably typos from the data collection stage and, in our case, nonsensical, I removed these rows.
 
@@ -76,12 +81,16 @@ WHERE year(zvejybos_pastangos_pradzia) = 2205;
 
 As I will be measuring the average duration of the fishing trips, I checked the duration of the fishing trip (h) - **pastangos_trukme_val** - column and after ordering the column in ascending order, I saw that there are a couple of negative values and entries with a value of zero, which in the case of duration - does not make sense. Therefore, I removed these rows.
 
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/negative_values.png)
+
 ```sql
 DELETE FROM ZuvuKiekis_edited
 WHERE pastangos_trukme_val <= 0;
 ```
 
-In the fishing tool name column - **zvejybos_irankio_pav** - I saw that there were both NULL and 'Nežinomi arba išsamiai nenurodyti įrankiai' entries which are overlapping in function. For the sake of standartization I replaced the 'Nežinomi arba išsamiai nenurodyti įrankiai' values with NULL.
+In the fishing tool name column - **zvejybos_irankio_pav** - I saw that there were both **NULL** and **'Nežinomi arba išsamiai nenurodyti įrankiai'** entries which are overlapping in function. For the sake of standartization I replaced the **'Nežinomi arba išsamiai nenurodyti įrankiai'** values with **NULL**.
+
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/NULL%20entries.png)
 
 ```sql
 UPDATE ZuvuKiekis_edited
@@ -97,17 +106,23 @@ GROUP BY zuvies_pav_en
 ORDER BY captured_amount_in_tonnes DESC;
 ```
 
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/top%2010%20fish%20name%20OG.png)
+
 ```sql
 SELECT TOP (10) ekonomines_zonos_pav, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
 GROUP BY ekonomines_zonos_pav
 ORDER BY captured_amount_in_tonnes DESC;
 ```
 
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/top%2010%20economic%20zone%20OG.png)
+
 ```sql
 SELECT TOP (10) fao_zonos_pav, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
 GROUP BY fao_zonos_pav
 ORDER BY captured_amount_in_tonnes DESC;
 ```
+
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/top%2010%20fao%20zones%20OG.png)
 
 ```sql
 UPDATE ZuvuKiekis_edited
@@ -153,7 +168,9 @@ Using the fishing trip duration (h) column - **pastangos_trukme_val** - I calcul
 SELECT AVG(pastangos_trukme_val) as average_fishing_trip_length FROM ZuvuKiekis_edited;
 ```
 
-Microsoft SQL Server automatically assigned the caught amount column - **sugauta_kiekis** - as INT type. However, since the total sum of all caught fish will exceed the character limits of INT column type, I converted the column into BIGINT.
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/average%20fishing%20trip%20duration.png)
+
+Microsoft SQL Server automatically assigned the caught amount column - **sugauta_kiekis** - as **INT** column type. However, since the total sum of all caught fish will exceed the character limits of **INT** column type, I converted the column into **BIGINT**.
 
 ```sql
 ALTER TABLE ZuvuKiekis_edited ALTER COLUMN sugauta_kiekis BIGINT;
@@ -165,6 +182,8 @@ Then I proceeded with the calculation of total amount of fish caught in tonnes u
 SELECT SUM(sugauta_kiekis)*0.001 as total_fish_caught_in_tonnes FROM ZuvuKiekis_edited;
 ```
 
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/total_fish_caught.png)
+
 Using the fishing tool name column - **zvejybos_irankio_pav** - I got the most productive fishing tool in terms of captured fish amount.
 
 ```sql
@@ -172,6 +191,9 @@ SELECT TOP (1)  zvejybos_irankio_pav, SUM(sugauta_kiekis)*0.001 as captured_amou
 GROUP BY zvejybos_irankio_pav
 ORDER BY captured_amount_in_tonnes DESC;
 ```
+
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/most%20productive%20fishing%20tool.png)
+
 In **Power BI** these queries were visualized as card values.
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/cards_fishing.png)
@@ -184,17 +206,23 @@ GROUP BY zuvies_pav_en
 ORDER BY captured_amount_in_tonnes DESC;
 ```
 
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/top%2010%20fish%20name%20STANDARTIZED.png)
+
 ```sql
 SELECT TOP (10) ekonomines_zonos_pav, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
 GROUP BY ekonomines_zonos_pav
 ORDER BY captured_amount_in_tonnes DESC;
 ```
 
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/top%2010%20economic%20zone%20STANDARDIZED.png)
+
 ```sql
 SELECT TOP (10) fao_zonos_pav, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
 GROUP BY fao_zonos_pav
 ORDER BY captured_amount_in_tonnes DESC;
 ```
+
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/top%2010%20fao%20zones%20STANDARDIZED.png)
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/bar_charts_fishing.png)
 
