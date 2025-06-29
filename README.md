@@ -50,7 +50,7 @@ HAVING COUNT(*) > 1;
 
 Since there were no duplicates, I moved on forward.
 
-Time series will be one of the main charts in the dashboard that I will create in **Power-BI**, therefore, I chose the column of the beginning of the fishing activity - **zvejybos_pastangos_pradzia** - to be the main time series column.
+Time series will be one of the main charts in the dashboard that I will create in **Power BI**, therefore, I chose the column of the beginning of the fishing activity - **zvejybos_pastangos_pradzia** - to be the main time series column.
 
 I ordered the column both in ascending and descending order to check for annomalies at the beginning and the end of the time series.
 
@@ -89,7 +89,7 @@ SET zvejybos_irankio_pav = NULL
 WHERE zvejybos_irankio_pav LIKE N'Nežinomi%';
 ```
 
-By checking the preliminary queries that will be used and visualized as bar charts in **Power-BI**, I saw that a few of the entries are way too long in terms of character count, therefore, I shortened them but kept the original logic and meaning intact.
+By checking the preliminary queries that will be used and visualized as bar charts in **Power BI**, I saw that a few of the entries are way too long in terms of character count, therefore, I shortened them but kept the original logic and meaning intact.
 
 ```sql
 SELECT TOP (10) zuvies_pav_en, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
@@ -172,9 +172,11 @@ SELECT TOP (1)  zvejybos_irankio_pav, SUM(sugauta_kiekis)*0.001 as captured_amou
 GROUP BY zvejybos_irankio_pav
 ORDER BY captured_amount_in_tonnes DESC;
 ```
-In **Power-BI** these queries were visualized as card values.
+In **Power BI** these queries were visualized as card values.
 
-Next step was to get the standartized TOP 10 queries of most caught fish, most productive economic zones, most productive FAO zones and to visualize them as bar charts in **Power-BI**.
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/cards_fishing.png)
+
+Next step was to get the standartized TOP 10 queries of most caught fish, most productive economic zones, most productive FAO zones and to visualize them as bar charts in **Power BI**.
 
 ```sql
 SELECT TOP (10) zuvies_pav_en, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
@@ -194,8 +196,11 @@ GROUP BY fao_zonos_pav
 ORDER BY captured_amount_in_tonnes DESC;
 ```
 
-After getting the wanted queries and values in SQL, the time series chart showing the caught fish amount trends over time could only be created using **Power-BI**.
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/bar_charts_fishing.png)
 
+After getting the wanted queries and values in SQL, the time series chart showing the caught fish amount trends over time could only be created using **Power BI**.
+
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/captured_fish_trends.png)
 
 The entire and complete Power-BI dashboard is below.
 
@@ -203,3 +208,5 @@ The entire and complete Power-BI dashboard is below.
 
 
 ## CONCLUSION
+
+In this project I have applied **SQL** and **Power BI** to understand and visualise what fishing tendencies or insights can be drawn from the dataset provided by Fisheries Data Information System (ŽDIS).
