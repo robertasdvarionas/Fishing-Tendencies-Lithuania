@@ -40,7 +40,7 @@ ALTER TABLE ZuvuKiekis_edited
 DROP COLUMN type,id,revision,page_next,fao_zonos_kodas,laivo_registracijos_numeris,kapitono_id;
 ```
 
-Furthermore, I checked if there are any duplicate ID- **id1** - column entries.
+Furthermore, I checked if there are any duplicate ID - **id1** - column entries.
 
 ```sql
 SELECT COUNT(*) FROM ZuvuKiekis_edited
@@ -50,7 +50,7 @@ HAVING COUNT(*) > 1;
 
 Since there were no duplicates, I moved on forward.
 
-Time series chart will be one of the main charts in the dashboard that I will create in **Power-BI**, therefore, I chose the column of the beginning of the fishing activity - **zvejybos_pastangos_pradzia** - to be the main time series column.
+Time series will be one of the main charts in the dashboard that I will create in **Power-BI**, therefore, I chose the column of the beginning of the fishing activity - **zvejybos_pastangos_pradzia** - to be the main time series column.
 
 I ordered the column both in ascending and descending order to check for annomalies at the beginning and the end of the time series.
 
@@ -61,4 +61,15 @@ ORDER BY zvejybos_pastangos_pradzia;
 ```sql
 SELECT zvejybos_pastangos_pradzia FROM ZuvuKiekis_edited
 ORDER BY zvejybos_pastangos_pradzia DESC;
+```
+
+I saw that there is one row with an entry from the year 1966 and two rows from the year 2205. As these entries are probably typos from the data collection stage and, in our case, nonsensical, I removed these rows.
+
+```sql
+DELETE FROM ZuvuKiekis_edited
+WHERE year(zvejybos_pastangos_pradzia) = 1966;
+```
+```sql
+DELETE FROM ZuvuKiekis_edited
+WHERE year(zvejybos_pastangos_pradzia) = 2205;
 ```
