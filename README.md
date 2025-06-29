@@ -1,6 +1,6 @@
 # EXPLORATORY DATA ANALYSIS OF THE FISHING TENDENCIES BY THE LITHUANIA'S FISHERY OFFICE
 
-![alt text](https://github.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/blob/main/Related%20Images/Klaipedos%20Uosto%20Tendencijos_page-0001.jpg)
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/Zuvininkystes_Tendencijos_page-0001.jpg)
 
 ## GOAL
 
@@ -14,6 +14,51 @@ Data was originally provided by Žuvininkystės tarnyba prie LR žemės ūkio mi
 The table presents information on the quantities of fish caught from the Fisheries Data Information System (ŽDIS) of the Fisheries Service under the Ministry of Agriculture of the Republic of Lithuania. The data has been provided since the beginning of their collection in the system (2015).
 Data has been collected since 2015.
 
-The dataset contains 47,802 rows.
+The dataset contains 226,100 rows.
 
 ## DATA CLEANING AND PREPARATION
+
+Firstly, I created a new database titled 'Zuvys' and imported the raw csv file into Microsoft SQL Server Management Studio as a flat file.
+
+The raw dataset looks like this:
+
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/raw_dataset_zuvys.png)
+
+As good practice, I duplicated the table 'ZuvuKiekis' and called it 'ZuvuKiekis_Edited' to keep the original raw dataset in case I need to access it later on.
+
+```sql
+SELECT * INTO ZuvuKiekis_edited
+FROM ZuvuKiekis;
+```
+
+Then, I started to look over the data to see what needs clean-up, standartization and etc.
+
+After a general look through, I immediately saw that the first four columns, **fao_zonos_kodas**,**laivo_registracijos_numeris** and **kapitono_id** columns will not be relevant in our project, hence I decided to remove them from our dataset.
+
+```sql
+ALTER TABLE ZuvuKiekis_edited
+DROP COLUMN type,id,revision,page_next,fao_zonos_kodas,laivo_registracijos_numeris,kapitono_id;
+```
+
+Furthermore, I checked if there are any duplicate ID- **id1** - column entries.
+
+```sql
+SELECT COUNT(*) FROM ZuvuKiekis_edited
+GROUP BY id1
+HAVING COUNT(*) > 1;
+```
+
+Since there were no duplicates, I moved on forward.
+
+Time series chart will be one of the main charts in the dashboard that I will create in **Power-BI**, therefore, I chose the column of the beginning of the fishing activity - **zvejybos_pastangos_pradzia** - to be the main time series column.
+
+I ordered the column both in ascending and descending order to check for annomalies at the beginning and the end of the time series.
+
+```sql
+SELECT zvejybos_pastangos_pradzia FROM ZuvuKiekis_edited
+ORDER BY zvejybos_pastangos_pradzia;
+```
+```sql
+SELECT zvejybos_pastangos_pradzia FROM ZuvuKiekis_edited
+ORDER BY zvejybos_pastangos_pradzia DESC;
+```
