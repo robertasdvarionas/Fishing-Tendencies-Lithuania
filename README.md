@@ -108,3 +108,36 @@ SELECT TOP (10) fao_zonos_pav, SUM(sugauta_kiekis) as captured_amount FROM ZuvuK
 GROUP BY fao_zonos_pav
 ORDER BY captured_amount DESC;
 ```
+
+```sql
+UPDATE ZuvuKiekis_edited
+SET zuvies_pav_en = 'Sardine'
+WHERE zuvies_pav_en = 'European Pilchard(=Sardine)';
+
+UPDATE ZuvuKiekis_edited
+SET zuvies_pav_en = 'Blue Whiting'
+WHERE zuvies_pav_en = 'Blue Whiting(=Poutassou)';
+
+UPDATE ZuvuKiekis_edited
+SET ekonomines_zonos_pav = N'Jungtinė Karalystė'
+WHERE ekonomines_zonos_pav = N'Jungtinė Didžiosios Britanijos ir Šiaurės Airijos Karalystė';
+
+UPDATE ZuvuKiekis_edited
+SET fao_zonos_pav = 'South Central Baltic (East)'
+WHERE fao_zonos_pav = 'Southern Central Baltic - East (Subdivision 26)';
+
+UPDATE ZuvuKiekis_edited
+SET fao_zonos_pav = 'Coast Of Scotland'
+WHERE fao_zonos_pav = 'Northwest Coast Of Scotland And North Ireland Or As The West Of Scotland (Division Via)';
+
+UPDATE ZuvuKiekis_edited
+SET fao_zonos_pav = 'South Central Baltic (West)'
+WHERE fao_zonos_pav = N'Southern Central Baltic Ā€“ West (Subdivision 25)';
+
+UPDATE ZuvuKiekis_edited
+SET fao_zonos_pav = 'Porcupine Bank'
+WHERE fao_zonos_pav = 'Porcupine Bank - Non-Neafc Regulatory Area';
+```
+
+## EXPLORATORY DATA ANALYSIS AND VISUALIZATION
+## CONCLUSION
