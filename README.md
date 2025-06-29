@@ -109,12 +109,28 @@ ORDER BY captured_amount_in_tonnes DESC;
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/top%2010%20fish%20name%20OG.png)
 
 ```sql
+UPDATE ZuvuKiekis_edited
+SET zuvies_pav_en = 'Sardine'
+WHERE zuvies_pav_en = 'European Pilchard(=Sardine)';
+
+UPDATE ZuvuKiekis_edited
+SET zuvies_pav_en = 'Blue Whiting'
+WHERE zuvies_pav_en = 'Blue Whiting(=Poutassou)';
+```
+
+```sql
 SELECT TOP (10) ekonomines_zonos_pav, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
 GROUP BY ekonomines_zonos_pav
 ORDER BY captured_amount_in_tonnes DESC;
 ```
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/top%2010%20economic%20zone%20OG.png)
+
+```sql
+UPDATE ZuvuKiekis_edited
+SET ekonomines_zonos_pav = N'Jungtinė Karalystė'
+WHERE ekonomines_zonos_pav = N'Jungtinė Didžiosios Britanijos ir Šiaurės Airijos Karalystė';
+```
 
 ```sql
 SELECT TOP (10) fao_zonos_pav, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
@@ -125,18 +141,6 @@ ORDER BY captured_amount_in_tonnes DESC;
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/top%2010%20fao%20zones%20OG.png)
 
 ```sql
-UPDATE ZuvuKiekis_edited
-SET zuvies_pav_en = 'Sardine'
-WHERE zuvies_pav_en = 'European Pilchard(=Sardine)';
-
-UPDATE ZuvuKiekis_edited
-SET zuvies_pav_en = 'Blue Whiting'
-WHERE zuvies_pav_en = 'Blue Whiting(=Poutassou)';
-
-UPDATE ZuvuKiekis_edited
-SET ekonomines_zonos_pav = N'Jungtinė Karalystė'
-WHERE ekonomines_zonos_pav = N'Jungtinė Didžiosios Britanijos ir Šiaurės Airijos Karalystė';
-
 UPDATE ZuvuKiekis_edited
 SET fao_zonos_pav = 'South Central Baltic (East)'
 WHERE fao_zonos_pav = 'Southern Central Baltic - East (Subdivision 26)';
