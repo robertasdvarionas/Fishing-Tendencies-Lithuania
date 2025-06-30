@@ -33,7 +33,7 @@ FROM ZuvuKiekis;
 
 Then, I started to look over the data to see what needs clean-up, standartization and etc.
 
-After a general look through, I immediately saw that the first four columns, **fao_zonos_kodas**,**laivo_registracijos_numeris** and **kapitono_id** columns will not be relevant in our project, hence I decided to remove them from our dataset.
+After a general overview, I immediately saw that the first four columns, **fao_zonos_kodas**,**laivo_registracijos_numeris** and **kapitono_id** columns will not be relevant in our project, hence I decided to remove them from our dataset.
 
 ```sql
 ALTER TABLE ZuvuKiekis_edited
@@ -246,4 +246,4 @@ In this project I have applied **SQL** and **Power BI** to understand and visual
 1. The average fishing trip lasts 11.68 hours, total amount of caught fish is 2.22 million tons and the most productive fishing tool is a pelagic trawl (Pelaginis tralas su ketoklėmis).
 2. We can see that the most productive years in terms of caught fish were 2007-2009 peaking at almost 200,000 tonnes and since 2011 the productivity started to go down and stabilized around 100,000 tonnes yearly (with a small spike in the caught amount in 2014). An investigation on why the fishing amounts have been decreasing should be done.
 3. The fish that were caught the most were Cunene Horse Mackerel, Chub Mackerel and European Sprat. The entire TOP 10 list could be important in keeping track of overfishing, fish population control and the protection of more vulnerable species.
-4. The most productive economic zones are Mauritania, Western Sahara and International Waters, while the most productive FAO zones are Senegal River (Estuary), Cape Timiris and Cape Barbas - all of which can be important to appropriate departments to control overfishing, fish populations and etc.
+4. The most productive economic zones are Mauritania, Western Sahara and International Waters, while the most productive FAO zones are Senegal River (Estuary), Cape Timiris and Cape Barbas - all of which can be important to appropriate departments to control overfishing, fish populations and etc. or, inversly, can be important to focus attention and funds to even further increase fishing and economic output.
