@@ -33,7 +33,7 @@ FROM ZuvuKiekis;
 
 Then, I started to look over the data to see what needs clean-up, standartization and etc.
 
-After a general overview, I immediately saw that the first four columns, **fao_zonos_kodas**,**laivo_registracijos_numeris** and **kapitono_id** columns will not be relevant in our project, hence I decided to remove them from our dataset.
+After a general overview, I immediately saw that the **first four columns**, **fao_zonos_kodas**,**laivo_registracijos_numeris** and **kapitono_id** columns will not be relevant in our project, hence I decided to remove them from our dataset.
 
 ```sql
 ALTER TABLE ZuvuKiekis_edited
