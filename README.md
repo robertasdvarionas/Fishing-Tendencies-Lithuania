@@ -161,9 +161,9 @@ WHERE fao_zonos_pav IN (
 
 The data is now cleaned up and ready for visualization, therefore, these will be the next steps:
 
-1. To calculate the average fishing trip duration, total fish caught in tonnes and get the most productive fishing tool using **Microsoft SQL Server**.
-2. Get the Top 10 most caught fish, most productive economic zones and most productive FAO zones.
-3. Import the data into Power BI via SQL Server method and build a dashboard visualizing the points above.
+1. To calculate the **average fishing trip duration, total fish caught in tonnes** and get the **most productive fishing tool** using **Microsoft SQL Server**.
+2. Get the **TOP 10 most caught fish, most productive economic zones** and **most productive FAO zones**.
+3. Import the data into **Power BI** via SQL Server method and build a dashboard visualizing the points above.
 
 Using the fishing trip duration (h) column - **pastangos_trukme_val** - I calculated the average fishing trip duration (h).
 
