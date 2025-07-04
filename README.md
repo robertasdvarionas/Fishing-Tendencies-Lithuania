@@ -227,6 +227,8 @@ ORDER BY captured_amount_in_tonnes DESC;
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/top%2010%20fao%20zones%20STANDARDIZED.png)
 
+In **Power BI** these queries were visualized as bar charts.
+
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/bar_charts_fishing.png)
 
 After getting the wanted queries and values in SQL, the time series chart showing the caught fish amount trends over time could only be created using **Power BI**.
