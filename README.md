@@ -12,7 +12,7 @@ The dataset was taken from Lietuvos Atvirų Duomenų Portalas and is publicly av
 Data was originally provided by Žuvininkystės tarnyba prie LR žemės ūkio ministerijos.
 
 The table presents information on the quantities of fish caught from the Fisheries Data Information System (ŽDIS) of the Fisheries Service under the Ministry of Agriculture of the Republic of Lithuania. The data has been provided since the beginning of their collection in the system (2015).
-Data has been collected since 2015.
+Data has been collected regularly since 2015 (the entire time range is 2003-2024).
 
 The dataset contains 226,100 rows.
 
