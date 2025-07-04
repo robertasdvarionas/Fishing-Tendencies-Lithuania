@@ -173,7 +173,7 @@ SELECT AVG(pastangos_trukme_val) as average_fishing_trip_length FROM ZuvuKiekis_
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/average%20fishing%20trip%20duration.png)
 
-Microsoft SQL Server automatically assigned the caught amount column - **sugauta_kiekis** - as **INT** column type. However, since the total sum of all caught fish will exceed the character limits of **INT** column type, I converted the column into **BIGINT**.
+Microsoft SQL Server automatically assigned the caught amount column - **sugauta_kiekis** - as **INT** data type. However, since the total sum of all caught fish will exceed the range of **INT** data type, I converted the column into **BIGINT**.
 
 ```sql
 ALTER TABLE ZuvuKiekis_edited ALTER COLUMN sugauta_kiekis BIGINT;
