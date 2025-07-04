@@ -201,7 +201,7 @@ In **Power BI** these queries were visualized as card values.
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Fishing-Tendencies-Lithuania/refs/heads/main/Related%20Images/cards_fishing.png)
 
-Next step was to get the standartized TOP 10 queries of most caught fish, most productive economic zones, most productive FAO zones and to visualize them as bar charts in **Power BI**.
+Next step was to get the standartized TOP 10 queries of **the most caught fish, most productive economic zones, most productive FAO zones** and to visualize them as bar charts in **Power BI**.
 
 ```sql
 SELECT TOP (10) zuvies_pav_en, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
