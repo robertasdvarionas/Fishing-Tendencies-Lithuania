@@ -110,12 +110,13 @@ ORDER BY captured_amount_in_tonnes DESC;
 
 ```sql
 UPDATE ZuvuKiekis_edited
-SET zuvies_pav_en = 'Sardine'
-WHERE zuvies_pav_en = 'European Pilchard(=Sardine)';
-
-UPDATE ZuvuKiekis_edited
-SET zuvies_pav_en = 'Blue Whiting'
-WHERE zuvies_pav_en = 'Blue Whiting(=Poutassou)';
+SET zuvies_pav_en = CASE
+    WHEN zuvies_pav_en = 'European Pilchard(=Sardine)' THEN 'Sardine'
+    WHEN zuvies_pav_en = 'Blue Whiting(=Poutassou)' THEN 'Blue Whiting'
+    ELSE zuvies_pav_en
+END
+WHERE
+   zuvies_pav_en IN ('European Pilchard(=Sardine)', 'Blue Whiting(=Poutassou)')
 ```
 
 ```sql
@@ -142,20 +143,19 @@ ORDER BY captured_amount_in_tonnes DESC;
 
 ```sql
 UPDATE ZuvuKiekis_edited
-SET fao_zonos_pav = 'South Central Baltic (East)'
-WHERE fao_zonos_pav = 'Southern Central Baltic - East (Subdivision 26)';
-
-UPDATE ZuvuKiekis_edited
-SET fao_zonos_pav = 'Coast Of Scotland'
-WHERE fao_zonos_pav = 'Northwest Coast Of Scotland And North Ireland Or As The West Of Scotland (Division Via)';
-
-UPDATE ZuvuKiekis_edited
-SET fao_zonos_pav = 'South Central Baltic (West)'
-WHERE fao_zonos_pav = N'Southern Central Baltic Ā€“ West (Subdivision 25)';
-
-UPDATE ZuvuKiekis_edited
-SET fao_zonos_pav = 'Porcupine Bank'
-WHERE fao_zonos_pav = 'Porcupine Bank - Non-Neafc Regulatory Area';
+SET fao_zonos_pav = CASE
+    WHEN fao_zonos_pav = 'Southern Central Baltic - East (Subdivision 26)' THEN 'South Central Baltic (East)'
+    WHEN fao_zonos_pav = 'Northwest Coast Of Scotland And North Ireland Or As The West Of Scotland (Division Via)' THEN 'Coast Of Scotland'
+    WHEN fao_zonos_pav = N'Southern Central Baltic Ā€“ West (Subdivision 25)' THEN 'South Central Baltic (West)'
+    WHEN fao_zonos_pav = 'Porcupine Bank - Non-Neafc Regulatory Area' THEN 'Porcupine Bank'
+    ELSE fao_zonos_pav
+END
+WHERE fao_zonos_pav IN (
+    'Southern Central Baltic - East (Subdivision 26)',
+    'Northwest Coast Of Scotland And North Ireland Or As The West Of Scotland (Division Via)',
+    N'Southern Central Baltic Ā€“ West (Subdivision 25)',
+    'Porcupine Bank - Non-Neafc Regulatory Area'
+);
 ```
 
 ## EXPLORATORY DATA ANALYSIS AND VISUALIZATION
