@@ -96,6 +96,7 @@ WHERE zvejybos_irankio_pav LIKE N'Nežinomi%';
 
 By checking the preliminary queries that will be used and visualized as bar charts in **Power BI**, I saw that a few of the entries are way too long in terms of character count, therefore, I shortened them but kept the original logic and meaning intact.
 
+1.
 ```sql
 SELECT TOP (10) zuvies_pav_en, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
 GROUP BY zuvies_pav_en
@@ -115,6 +116,7 @@ WHERE
    zuvies_pav_en IN ('European Pilchard(=Sardine)', 'Blue Whiting(=Poutassou)')
 ```
 
+2.
 ```sql
 SELECT TOP (10) ekonomines_zonos_pav, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
 GROUP BY ekonomines_zonos_pav
@@ -129,6 +131,7 @@ SET ekonomines_zonos_pav = N'Jungtinė Karalystė'
 WHERE ekonomines_zonos_pav = N'Jungtinė Didžiosios Britanijos ir Šiaurės Airijos Karalystė';
 ```
 
+3.
 ```sql
 SELECT TOP (10) fao_zonos_pav, SUM(sugauta_kiekis)*0.001 as captured_amount_in_tonnes FROM ZuvuKiekis_edited
 GROUP BY fao_zonos_pav
