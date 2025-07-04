@@ -72,11 +72,7 @@ I saw that there is one row with an entry from the year 1966 and two rows from t
 
 ```sql
 DELETE FROM ZuvuKiekis_edited
-WHERE year(zvejybos_pastangos_pradzia) = 1966;
-```
-```sql
-DELETE FROM ZuvuKiekis_edited
-WHERE year(zvejybos_pastangos_pradzia) = 2205;
+WHERE YEAR(zvejybos_pastangos_pradzia) IN (1966, 2205);
 ```
 
 As I will be measuring the average duration of the fishing trips, I checked the duration of the fishing trip (h) - **pastangos_trukme_val** - column and after ordering the column in ascending order, I saw that there are a couple of negative values and entries with a value of zero, which in the case of duration - does not make sense. Therefore, I removed these rows.
